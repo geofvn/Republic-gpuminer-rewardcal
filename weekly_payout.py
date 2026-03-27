@@ -256,7 +256,7 @@ def main():
         ("Pres", "Presence Score (only from processed jobs)"),
         ("Steady", "Steadiness Score (unique days × longest streak)"),
         ("Help", "Helpfulness Score (hour spread × success rate, min 5k jobs)"),
-        ("Build", "Builder Bonus Option C (uptime proxy + contribution share)"),
+        ("Build", "Builder Bonus(uptime proxy + contribution share)"),
         ("Final", "Final Contribution Score (used for ecosytem points allocation)")
     ]
     for abbrev, meaning in legend:
