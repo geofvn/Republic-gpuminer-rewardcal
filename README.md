@@ -2,7 +2,7 @@
 
 A fair, transparent, and anti-gaming reward system for GPU miners and job creators.
 
-Each week, **1,600,000 RAI** is distributed using a **continuous multiplicative scoring model** that rewards:
+Each week, **1,600,000 ecosytem points** is distributed using a **continuous multiplicative scoring model** that rewards:
 
 - Real GPU processing
 - Reliable job creation
@@ -36,11 +36,11 @@ Your **Final Score** determines your share of the weekly reward pool.
 
 # Weekly Reward Pool
 ```bash
-Total Weekly Distribution = 1,600,000 RAI
+Total Weekly Distribution = 1,600,000 ecosytem points
 ```
 
 ```bash
-Maximum Per Wallet = 240,000 RAI (15% cap)
+Maximum Per Wallet = 240,000 ecosytem points (15% cap)
 ```
 
 Rewards are distributed **proportionally**:
@@ -72,7 +72,7 @@ min(wallet_reward, 240,000)
 | Steady | Steadiness Score (day spread × streak factor across the week) |
 | Help | Helpfulness Score (hour spread × success rate, requires ≥ 5,000 jobs) |
 | Build | Builder Bonus (validator uptime proxy + contribution share) |
-| Final | Final Contribution Score (used to calculate weekly RAI allocation) |
+| Final | Final Contribution Score (used to calculate weekly ecosytem points allocation) |
 
 ### The Six Contribution Scores
 Each wallet receives six independent scores. These are multiplied together to compute contribution weight
@@ -129,7 +129,7 @@ The payout script:
 2. Caches responses locally
 3. Converts wallet ↔ validator addresses automatically
 4. Computes all six contribution scores
-5. Allocates 1,600,000 RAI proportionally
+5. Allocates 1,600,000 ecosystem points proportionally
 6. Applies 240,000 cap
 7. Outputs payout files
 
@@ -164,7 +164,7 @@ NO → last 7 days
 2. Effort requires ≥ 5,000 processed jobs
 3. Helpfulness requires ≥ 5,000 processed jobs
 4. Builder bonus requires bonded validator
-5. Maximum payout per wallet = 240,000 RAI
+5. Maximum payout per wallet = 240,000 ecosystem points
 ```
 
 ---
