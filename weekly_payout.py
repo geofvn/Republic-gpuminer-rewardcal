@@ -73,7 +73,7 @@ def calculate_longest_streak(active_days):
 
 def main():
     print("=" * 120)
-    print("   Republic Testnet Weekly Payout System (6 Scores + ecosytem points Distribution)")
+    print("   Republic Testnet Weekly Payout System (6 Scores + RAI Distribution)")
     print("=" * 120 + "\n")
 
     # Interactive date selection
@@ -257,7 +257,7 @@ def main():
         ("Steady", "Steadiness Score (unique days × longest streak)"),
         ("Help", "Helpfulness Score (hour spread × success rate, min 5k jobs)"),
         ("Build", "Builder Bonus(uptime proxy + contribution share)"),
-        ("Final", "Final Contribution Score (used for ecosytem points allocation)")
+        ("Final", "Final Contribution Score (used for RAI allocation)")
     ]
     for abbrev, meaning in legend:
         print(f"{abbrev:<8} = {meaning}")
@@ -276,7 +276,7 @@ def main():
 
     print("═" * 170)
 
-    # Ecosytem points Distribution
+    # RAI Distribution
     total_final = sum(r["final_score"] for r in results)
     if total_final == 0:
         total_final = 1
@@ -293,20 +293,20 @@ def main():
         for abbrev, meaning in legend:
             writer.writerow([abbrev, meaning])
         writer.writerow([])
-        writer.writerow(["Rank","Moniker","Jobs_Submitted","Creation_Completed","Effort_Completed","Success_Rate","Job_Creation_Score","Effort_Score","Presence_Score","Steadiness_Score","Helpfulness_Score","Builder_Multiplier","Final_Score","Est_points","Capped"])
+        writer.writerow(["Rank","Moniker","Jobs_Submitted","Creation_Completed","Effort_Completed","Success_Rate","Job_Creation_Score","Effort_Score","Presence_Score","Steadiness_Score","Helpfulness_Score","Builder_Multiplier","Final_Score","Estimated_RAI","Capped"])
         for r in results:
-            writer.writerow([r["rank"], r["display_name"], r["jobs_submitted"], r["creation_completed"], r["effort_completed"], r["success_rate"], r["job_creation_score"], r["effort_score"], r["presence_score"], r["steadiness_score"], r["helpfulness_score"], r["builder_multiplier"], r["final_score"], round(r["Est_points"], 2), r["capped"]])
+            writer.writerow([r["rank"], r["display_name"], r["jobs_submitted"], r["creation_completed"], r["effort_completed"], r["success_rate"], r["job_creation_score"], r["effort_score"], r["presence_score"], r["steadiness_score"], r["helpfulness_score"], r["builder_multiplier"], r["final_score"], round(r["estimated_rai"], 2), r["capped"]])
 
     # Save simple payment CSV
     with open("simple_payout.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(["address","Est_points"])
+        writer.writerow(["address","estimated_rai"])
         for r in results:
-            writer.writerow([r["address"], round(r["Est_points"], 2)])
+            writer.writerow([r["address"], round(r["estimated_rai"], 2)])
 
     print("\n✅ Full payout files generated:")
     print("   - full_payout.csv (detailed report with all scores)")
-    print("   - simple_payout.csv (address + Est_points for payments)")
+    print("   - simple_payout.csv (address + estimated_rai for payments)")
     print("   Legend is at the top of full_payout.csv")
 
 def calculate_longest_streak(active_days):
