@@ -4,273 +4,408 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Republic Testnet • Reward Model</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: Inter, system-ui;
     }
 
     .title-font {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: "Space Grotesk";
     }
 
     .hero-bg {
-      background: linear-gradient(to bottom, #0f172a, #1e2937);
+      background: linear-gradient(to bottom, #020617, #0f172a);
+    }
+
+    .math {
+      font-family: "Space Grotesk";
+      background: #020617;
+      color: #c7d2fe;
     }
 
     .score-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: .35s ease;
     }
 
     .score-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .45);
     }
 
-    .math {
-      font-family: 'Space Grotesk', sans-serif;
-      background: #1e2937;
-      color: #c7d2fe;
-      transition: all 0.4s ease;
-    }
-
-    .math:hover {
-      transform: scale(1.03);
-      background: #312e81;
-    }
-
-    .fade-slide {
+    .fade {
       opacity: 0;
-      transform: translateY(30px);
-      animation: fadeSlideUp 0.8s forwards;
+      transform: translateY(20px);
+      animation: fadeUp .8s forwards;
     }
 
-    @keyframes fadeSlideUp {
+    @keyframes fadeUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    .formula-box {
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .formula-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.3);
     }
   </style>
 </head>
 
 <body class="bg-slate-950 text-slate-200">
 
-  <!-- Hero -->
-  <div class="hero-bg py-16 md:py-24">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h1 class="title-font text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-white mb-4 fade-slide">
+  <!-- NAVBAR -->
+
+  <header class="sticky top-0 backdrop-blur-lg bg-slate-950/80 border-b border-slate-800 z-50">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+
+      <h1 class="title-font text-lg sm:text-xl text-white">
         Republic Testnet
       </h1>
-      <p class="text-2xl md:text-3xl font-light text-slate-300 fade-slide" style="animation-delay: 200ms">
-        GPU Miner Weekly Reward Model
-      </p>
-      <p class="mt-6 text-base md:text-lg text-slate-400 max-w-2xl mx-auto fade-slide" style="animation-delay: 400ms">
-        1,600,000 RAI distributed every week with fairness, transparency, and zero gaming.
-      </p>
+
+      <nav class="hidden md:flex gap-6 text-sm text-slate-400">
+
+        <a href="#legend" class="hover:text-indigo-400">Legend</a>
+
+        <a href="#scores" class="hover:text-indigo-400">Scores</a>
+
+        <a href="#formula" class="hover:text-indigo-400">Formula</a>
+
+        <a href="#script" class="hover:text-indigo-400">Run Script</a>
+
+      </nav>
+
     </div>
-  </div>
 
-  <div class="max-w-6xl mx-auto px-5 md:px-6 py-12 md:py-20">
+  </header>
 
-    <!-- Legend Table -->
-    <div class="bg-slate-900 rounded-3xl shadow-2xl p-8 md:p-14 mb-16">
-      <h2 class="text-3xl md:text-4xl font-semibold text-center mb-10 text-white fade-slide">
-        Meaning of the Abbreviated Words
+  <!-- HERO -->
+
+  <section class="hero-bg py-16 sm:py-20 lg:py-28 text-center">
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+
+      <h1 class="title-font text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white fade">
+
+        GPU Miner Weekly Reward Model
+
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto fade">
+
+        1,600,000 RAI distributed weekly using a fairness-first contribution scoring system.
+
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- CONTENT -->
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+
+    <!-- LEGEND -->
+
+    <section id="legend" class="mb-20">
+
+      <h2 class="text-2xl sm:text-3xl font-semibold text-white mb-10 text-center">
+
+        Legend of Score Variables
+
       </h2>
 
-      <div class="overflow-x-auto">
-        <table class="w-full min-w-[640px] text-left">
-          <thead>
-            <tr class="border-b border-slate-700">
-              <th class="py-5 px-6 font-medium text-indigo-400 w-24">Abbr.</th>
-              <th class="py-5 px-6 font-medium text-indigo-400">Full Meaning</th>
+      <div class="overflow-x-auto rounded-2xl border border-slate-800">
+
+        <table class="w-full text-sm sm:text-base">
+
+          <thead class="bg-slate-900">
+
+            <tr>
+
+              <th class="px-6 py-4 text-indigo-400 text-left">Abbreviation</th>
+
+              <th class="px-6 py-4 text-indigo-400 text-left">Meaning</th>
+
             </tr>
+
           </thead>
-          <tbody class="text-slate-300 text-sm md:text-base">
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">Sub</td>
-              <td class="py-6 px-6">Jobs Submitted: Number of jobs this wallet created</td>
+
+          <tbody class="divide-y divide-slate-800">
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">Sub</td>
+
+              <td class="px-6 py-4">Jobs Submitted</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">CrC</td>
-              <td class="py-6 px-6">Creation Completed: How many created jobs reached COMPLETED</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">CrC</td>
+
+              <td class="px-6 py-4">Creation Completed</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">EfC</td>
-              <td class="py-6 px-6">Effort Completed: How many jobs processed on GPU with result submitted</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">EfC</td>
+
+              <td class="px-6 py-4">Effort Completed (processed jobs)</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">SR</td>
-              <td class="py-6 px-6">Success Rate: Completed / Attempted as processor</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">SR</td>
+
+              <td class="px-6 py-4">Success Rate</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">JC</td>
-              <td class="py-6 px-6">Job Creation Score (1.00 – 1.08)</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">JC</td>
+
+              <td class="px-6 py-4">Job Creation Score</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">Eff</td>
-              <td class="py-6 px-6">Effort Score (0 if &lt; 5,000 processed jobs)</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">Eff</td>
+
+              <td class="px-6 py-4">Effort Score</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">Pres</td>
-              <td class="py-6 px-6">Presence Score (only from processed jobs)</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">Pres</td>
+
+              <td class="px-6 py-4">Presence Score</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">Steady</td>
-              <td class="py-6 px-6">Steadiness Score (day spread × longest streak)</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">Steady</td>
+
+              <td class="px-6 py-4">Steadiness Score</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">Help</td>
-              <td class="py-6 px-6">Helpfulness Score (hour spread × success rate, min 5k jobs)</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">Help</td>
+
+              <td class="px-6 py-4">Helpfulness Score</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">Build</td>
-              <td class="py-6 px-6">Builder Bonus (uptime proxy + contribution share)</td>
+
+            <tr>
+
+              <td class="px-6 py-4 font-mono">Build</td>
+
+              <td class="px-6 py-4">Validator Builder Bonus</td>
+
             </tr>
-            <tr class="hover:bg-slate-800/70 rounded-xl transition-all">
-              <td class="py-6 px-6 font-mono font-semibold">Final</td>
-              <td class="py-6 px-6">Final Contribution Score (used for RAI allocation)</td>
-            </tr>
+
           </tbody>
+
         </table>
-      </div>
-    </div>
 
-    <!-- The Six Scores -->
-    <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-white fade-slide">The Six Scores Explained</h2>
-
-    <div class="grid md:grid-cols-2 gap-6 md:gap-10">
-      <div class="score-card bg-slate-900 rounded-3xl p-8 border border-slate-700 hover:border-indigo-400">
-        <h3 class="text-2xl font-semibold text-indigo-400 mb-5">1. Job Creation Score (JC)</h3>
-        <p class="text-slate-300 mb-6 text-base">Rewards wallets that create useful jobs. Bonus improves when most jobs
-          are completed.</p>
-        <div class="math p-6 rounded-2xl text-center text-lg">JC = 1.00 + min(0.08, completion_rate × 0.08)</div>
       </div>
 
-      <div class="score-card bg-slate-900 rounded-3xl p-8 border border-slate-700 hover:border-indigo-400">
-        <h3 class="text-2xl font-semibold text-indigo-400 mb-5">2. Effort Score (Eff)</h3>
-        <p class="text-slate-300 mb-6 text-base">Rewards actual GPU processing. Only counts fully processed jobs with
-          result submitted.</p>
-        <div class="math p-6 rounded-2xl text-center text-lg">Eff = √(EfC) × SR<br><span
-            class="text-xs text-slate-400">(0 if &lt; 5,000 processed jobs)</span></div>
-      </div>
+    </section>
 
-      <div class="score-card bg-slate-900 rounded-3xl p-8 border border-slate-700 hover:border-indigo-400">
-        <h3 class="text-2xl font-semibold text-indigo-400 mb-5">3. Presence Score (Pres)</h3>
-        <p class="text-slate-300 mb-6 text-base">Rewards consistent online time while processing jobs.</p>
-        <div class="math p-6 rounded-2xl text-center text-lg">Pres = (unique active hours / 168) × SR</div>
-      </div>
+    <!-- SCORES -->
 
-      <div class="score-card bg-slate-900 rounded-3xl p-8 border border-slate-700 hover:border-indigo-400">
-        <h3 class="text-2xl font-semibold text-indigo-400 mb-5">4. Steadiness Score (Steady)</h3>
-        <p class="text-slate-300 mb-6 text-base">Rewards activity spread across days with bonus for consecutive streaks.
-        </p>
-        <div class="math p-6 rounded-2xl text-center text-lg">Steady = (unique active days / 7) × (longest streak / 7)
+    <section id="scores">
+
+      <h2 class="text-2xl sm:text-3xl font-semibold text-white text-center mb-14">
+
+        The Six Contribution Scores
+
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- CARD -->
+
+        <div class="score-card bg-slate-900 p-8 rounded-2xl border border-slate-800">
+
+          <h3 class="text-indigo-400 text-xl mb-4">
+
+            Job Creation Score
+
+          </h3>
+
+          <div class="math p-5 rounded-xl text-center break-words">
+
+            JC = 1 + min(0.08 , completion_rate × 0.08)
+
+          </div>
+
         </div>
-      </div>
 
-      <div class="score-card bg-slate-900 rounded-3xl p-8 border border-slate-700 hover:border-indigo-400">
-        <h3 class="text-2xl font-semibold text-indigo-400 mb-5">5. Helpfulness Score (Help)</h3>
-        <p class="text-slate-300 mb-6 text-base">Rewards activity spread across different hours of the day.</p>
-        <div class="math p-6 rounded-2xl text-center text-lg">Help = 1.00 + (unique hours / 24) × 0.25 × SR</div>
-      </div>
+        <div class="score-card bg-slate-900 p-8 rounded-2xl border border-slate-800">
 
-      <div class="score-card bg-slate-900 rounded-3xl p-8 border border-slate-700 hover:border-indigo-400">
-        <h3 class="text-2xl font-semibold text-indigo-400 mb-5">6. Builder Bonus (Build)</h3>
-        <p class="text-slate-300 mb-6 text-base">Rewards validators who also contribute GPU work.</p>
-        <div class="math p-6 rounded-2xl text-center text-lg">Build = 1.00 + (uptime proxy × 0.05) + (contribution share
-          × 0.05)</div>
-      </div>
-    </div>
+          <h3 class="text-indigo-400 text-xl mb-4">
 
-    <!-- Final Score -->
-    <div class="mt-20 bg-slate-900 rounded-3xl p-10 md:p-16 text-center border border-slate-700">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-8 text-white">Final Contribution Score</h2>
+            Effort Score
 
-      <div
-        class="formula-box mx-auto max-w-lg bg-slate-950 rounded-3xl p-8 md:p-12 border border-indigo-500/30 hover:border-indigo-400">
-        <div id="finalFormula" class="text-3xl md:text-4xl font-light text-indigo-200 leading-relaxed">
-          Final = Eff × JC × Pres × Steady × Help × Build
+          </h3>
+
+          <div class="math p-5 rounded-xl text-center">
+
+            Eff = √EfC × SR
+
+          </div>
+
         </div>
+
+        <div class="score-card bg-slate-900 p-8 rounded-2xl border border-slate-800">
+
+          <h3 class="text-indigo-400 text-xl mb-4">
+
+            Presence Score
+
+          </h3>
+
+          <div class="math p-5 rounded-xl text-center">
+
+            Pres = active_hours / 168 × SR
+
+          </div>
+
+        </div>
+
+        <div class="score-card bg-slate-900 p-8 rounded-2xl border border-slate-800">
+
+          <h3 class="text-indigo-400 text-xl mb-4">
+
+            Steadiness Score
+
+          </h3>
+
+          <div class="math p-5 rounded-xl text-center">
+
+            Steady = active_days² / 49
+
+          </div>
+
+        </div>
+
+        <div class="score-card bg-slate-900 p-8 rounded-2xl border border-slate-800">
+
+          <h3 class="text-indigo-400 text-xl mb-4">
+
+            Helpfulness Score
+
+          </h3>
+
+          <div class="math p-5 rounded-xl text-center">
+
+            Help = 1 + hours / 24 × 0.25 × SR
+
+          </div>
+
+        </div>
+
+        <div class="score-card bg-slate-900 p-8 rounded-2xl border border-slate-800">
+
+          <h3 class="text-indigo-400 text-xl mb-4">
+
+            Builder Bonus
+
+          </h3>
+
+          <div class="math p-5 rounded-xl text-center">
+
+            Build = 1 + uptime × 0.05 + share × 0.05
+
+          </div>
+
+        </div>
+
       </div>
 
-      <p class="mt-10 text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
-        This final score determines each miner's share of the 1,600,000 RAI weekly pool.
+    </section>
+
+    <!-- FINAL FORMULA -->
+
+    <section id="formula" class="mt-24 text-center">
+
+      <h2 class="text-2xl sm:text-3xl font-semibold text-white mb-10">
+
+        Final Contribution Formula
+
+      </h2>
+
+      <div class="math text-lg sm:text-2xl md:text-3xl px-6 py-8 rounded-2xl inline-block break-words">
+
+        Final = Eff × JC × Pres × Steady × Help × Build
+
+      </div>
+
+      <p class="mt-6 text-slate-400 max-w-xl mx-auto">
+
+        Determines each wallet’s share of the weekly 1,600,000 RAI pool.
+
       </p>
-    </div>
 
-    <!-- How to Run -->
-    <div class="mt-20 bg-slate-900 rounded-3xl p-8 md:p-14">
-      <h2 class="text-3xl font-semibold text-center mb-10 text-white">How to Run the Payout Script</h2>
-      <div class="max-w-2xl mx-auto space-y-10">
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div
-            class="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-2xl text-indigo-400 shrink-0">
-            1</div>
-          <div class="flex-1">
-            <h3 class="font-medium mb-2">Clone the repository</h3>
-            <pre
-              class="bg-black text-emerald-400 p-5 rounded-2xl font-mono text-sm overflow-x-auto">git clone https://github.com/geofvn/Republic-gpuminer-rewardcal.git</pre>
-          </div>
-        </div>
+    </section>
 
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div
-            class="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-2xl text-indigo-400 shrink-0">
-            2</div>
-          <div class="flex-1">
-            <h3 class="font-medium mb-2">Install dependencies</h3>
-            <pre
-              class="bg-black text-emerald-400 p-5 rounded-2xl font-mono text-sm">pip install -r requirements.txt</pre>
-          </div>
-        </div>
+    <!-- SCRIPT -->
 
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div
-            class="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-2xl text-indigo-400 shrink-0">
-            3</div>
-          <div class="flex-1">
-            <h3 class="font-medium mb-2">Run the script</h3>
-            <pre class="bg-black text-emerald-400 p-5 rounded-2xl font-mono text-sm">python3 weekly_payout.py</pre>
-          </div>
-        </div>
+    <section id="script" class="mt-24">
+
+      <h2 class="text-2xl sm:text-3xl text-white text-center mb-10">
+
+        Run the Weekly Payout Script
+
+      </h2>
+
+      <div class="space-y-8 max-w-xl mx-auto">
+
+        <pre class="bg-black text-emerald-400 text-xs sm:text-sm p-5 rounded-xl overflow-x-auto">
+
+git clone https://github.com/geofvn/Republic-gpuminer-rewardcal.git
+
+</pre>
+
+        <pre class="bg-black text-emerald-400 text-xs sm:text-sm p-5 rounded-xl overflow-x-auto">
+
+pip install -r requirements.txt
+
+</pre>
+
+        <pre class="bg-black text-emerald-400 text-xs sm:text-sm p-5 rounded-xl overflow-x-auto">
+
+python3 weekly_payout.py
+
+</pre>
+
       </div>
-    </div>
 
-    <div class="text-center mt-16 text-slate-500 text-sm">
-      Made with transparency and fairness for the Republic community • March 2026
-    </div>
-  </div>
+    </section>
 
-  <script>
-    window.addEventListener('load', () => {
-      document.querySelectorAll('.fade-slide').forEach((el, i) => {
-        el.style.animationDelay = (i * 80) + 'ms';
-      });
-    });
+  </main>
 
-    const formula = document.getElementById('finalFormula');
-    formula.addEventListener('mouseenter', () => {
-      formula.style.transform = 'scale(1.08)';
-    });
-    formula.addEventListener('mouseleave', () => {
-      formula.style.transform = 'scale(1)';
-    });
-  </script>
+  <footer class="text-center text-slate-500 text-sm pb-12">
+
+    Republic Testnet • March 2026
+
+  </footer>
+
 </body>
 
 </html>
